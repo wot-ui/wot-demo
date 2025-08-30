@@ -1,14 +1,6 @@
-/*
- * @Author: weisheng
- * @Date: 2025-04-10 18:02:00
- * @LastEditTime: 2025-06-15 22:41:52
- * @LastEditors: weisheng
- * @Description: Alova instance configuration
- * @FilePath: /wot-starter/src/api/core/instance.ts
- */
+import AdapterUniapp from '@alova/adapter-uniapp'
 import { createAlova } from 'alova'
 import vueHook from 'alova/vue'
-import AdapterUniapp from '@alova/adapter-uniapp'
 import mockAdapter from '../mock/mockAdapter'
 import { handleAlovaError, handleAlovaResponse } from './handlers'
 

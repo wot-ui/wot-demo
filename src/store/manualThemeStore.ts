@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia'
 import type { ThemeColorOption, ThemeMode, ThemeState } from '@/composables/types/theme'
+import { defineStore } from 'pinia'
 import { themeColorOptions } from '@/composables/types/theme'
 
 /**

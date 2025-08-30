@@ -1,7 +1,7 @@
 /*
  * @Author: weisheng
  * @Date: 2025-08-28 20:59:43
- * @LastEditTime: 2025-08-28 21:07:08
+ * @LastEditTime: 2025-08-30 19:33:05
  * @LastEditors: weisheng
  * @Description:
  * @FilePath: /wot-starter/manifest.config.ts
@@ -11,7 +11,7 @@ import { defineManifestConfig } from '@uni-helper/vite-plugin-uni-manifest'
 
 export default defineManifestConfig({
   'name': 'wot-starter',
-  'appid': '',
+  'appid': '__UNI__1208592',
   'description': '',
   'versionName': '1.0.0',
   'versionCode': '100',

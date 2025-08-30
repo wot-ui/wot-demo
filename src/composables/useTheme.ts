@@ -68,6 +68,3 @@ export function useTheme() {
     themeVars: computed(() => store.themeVars),
   }
 }
-
-// 导出类型供外部使用
-export type { ThemeMode }

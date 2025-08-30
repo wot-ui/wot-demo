@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia'
 import type { ToastOptions } from 'wot-design-uni/components/wd-toast/types'
+import { defineStore } from 'pinia'
 
 interface GlobalToast {
   toastOptions: ToastOptions

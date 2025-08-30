@@ -26,9 +26,14 @@ import type { Alova, MethodType, AlovaGenerics, AlovaMethodCreateConfig } from '
 import { Method } from 'alova';
 import apiDefinitions from './apiDefinitions';
 
+const cache = Object.create(null);
 const createFunctionalProxy = (array: (string | symbol)[], alovaInstance: Alova<AlovaGenerics>, configMap: any) => {
+  const apiPathKey = array.join('.') as keyof typeof apiDefinitions;
+  if (cache[apiPathKey]) {
+    return cache[apiPathKey];
+  }
   // create a new proxy instance
-  return new Proxy(function () {}, {
+  const proxy = new Proxy(function () {}, {
     get(_, property) {
       // record the target property, so that it can get the completed accessing paths
       const newArray = [...array, property];
@@ -36,7 +41,6 @@ const createFunctionalProxy = (array: (string | symbol)[], alovaInstance: Alova<
       return createFunctionalProxy(newArray, alovaInstance, configMap);
     },
     apply(_, __, [config]) {
-      const apiPathKey = array.join('.') as keyof typeof apiDefinitions;
       const apiItem = apiDefinitions[apiPathKey];
       if (!apiItem) {
         throw new Error(`the api path of \`${apiPathKey}\` is not found`);
@@ -47,7 +51,7 @@ const createFunctionalProxy = (array: (string | symbol)[], alovaInstance: Alova<
       };
       const [method, url] = apiItem;
       const pathParams = mergedConfig.pathParams;
-      const urlReplaced = url.replace(/\{([^}]+)\}/g, (_, key) => {
+      const urlReplaced = url!.replace(/\{([^}]+)\}/g, (_, key) => {
         const pathParam = pathParams[key];
         return pathParam;
       });
@@ -64,9 +68,11 @@ const createFunctionalProxy = (array: (string | symbol)[], alovaInstance: Alova<
         }
         data = hasBlobData ? formData : data;
       }
-      return new Method(method.toUpperCase() as MethodType, alovaInstance, urlReplaced, mergedConfig, data);
+      return new Method(method!.toUpperCase() as MethodType, alovaInstance, urlReplaced, mergedConfig, data);
     }
   });
+  cache[apiPathKey] = proxy;
+  return proxy;
 };
 
 export const createApis = (alovaInstance: Alova<AlovaGenerics>, configMap: any) => {

@@ -1,14 +1,6 @@
-/*
- * @Author: weisheng
- * @Date: 2025-04-18 10:46:28
- * @LastEditTime: 2025-06-14 21:24:21
- * @LastEditors: weisheng
- * @Description:
- * @FilePath: /wot-starter/src/composables/useGlobalLoading.ts
- * 记得注释
- */
-import { defineStore } from 'pinia'
 import type { ToastOptions } from 'wot-design-uni/components/wd-toast/types'
+
+import { defineStore } from 'pinia'
 
 interface GlobalLoading {
   loadingOptions: ToastOptions
